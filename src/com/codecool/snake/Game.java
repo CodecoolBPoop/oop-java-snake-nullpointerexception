@@ -4,6 +4,7 @@ import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
@@ -23,6 +24,14 @@ public class Game extends Pane {
     }
 
     public void start() {
+
+        Button button = new Button("Restart");
+        getChildren().add(button);
+        button.setOnAction(value -> {
+            restart();
+        });
+
+
         Scene scene = getScene();
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -39,5 +48,10 @@ public class Game extends Pane {
         });
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
+    }
+
+    public void restart() {
+
+        start();
     }
 }
