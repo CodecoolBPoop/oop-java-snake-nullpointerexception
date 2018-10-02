@@ -56,11 +56,9 @@ public class Game extends Pane {
     }
 
     public void restart() {
+        Globals.gameLoop.stop();
         getChildren().clear();
-        List<GameEntity> objectList = Globals.gameObjects;
-        for (GameEntity object : objectList) {
-            Globals.removeGameObject(object);
-        }
+        Globals.gameObjects.removeAll(Globals.gameObjects);
         new SnakeHead(this, 500, 500);
 
         new SimpleEnemy(this);
@@ -72,7 +70,6 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new SimplePowerup(this);
         new SimplePowerup(this);
-
         start();
 
     }
