@@ -3,8 +3,11 @@ package com.codecool.snake;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
@@ -66,6 +69,23 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new SimplePowerup(this);
         start();
-
     }
+
+    public void gameOver() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "GAME OVER");
+        alert.setTitle("GAME OVER");
+        alert.setHeaderText("");
+        ButtonType buttonRestart = new ButtonType("Restart");
+        ButtonType buttonExit = new ButtonType("Exit");
+        alert.getButtonTypes().setAll(buttonRestart, buttonExit);
+        alert.setOnHidden(e -> {
+            if (alert.getResult() == buttonRestart) {
+                restart();
+            } else if (alert.getResult() == buttonExit) {
+                Platform.exit();
+            }
+        });
+        alert.show();
+    }
+
 }
