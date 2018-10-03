@@ -23,7 +23,8 @@ public class Globals {
     public static Image redHealth = new Image("red_bar.png");
     public static Image healthPowerup = new Image("health_powerup.png");
     //.. put here the other images you want to use
-
+    public static boolean AkeyDown;
+    public static boolean DkeyDown;
     public static boolean leftKeyDown;
     public static boolean rightKeyDown;
     public static List<GameEntity> gameObjects;

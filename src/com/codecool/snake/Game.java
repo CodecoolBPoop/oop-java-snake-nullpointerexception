@@ -17,6 +17,7 @@ public class Game extends Pane {
 
     public Game() {
         new SnakeHead(this, 500, 500);
+        new SnakeHead(this, 200, 200);
 
         new SimpleEnemy(this);
         new SimpleEnemy(this);
@@ -52,13 +53,19 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
                 case RIGHT: Globals.rightKeyDown  = true; break;
+                case A: Globals.AkeyDown = true; break;
+                case D: Globals.DkeyDown = true; break;
             }
         });
+
+
         /** set eventHandler to release left and right keys */
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
+                case A: Globals.AkeyDown = false; break;
+                case D: Globals.DkeyDown = false; break;
             }
         });
         Globals.gameLoop = new GameLoop();
@@ -74,6 +81,7 @@ public class Game extends Pane {
         getChildren().clear();
         Globals.gameObjects.removeAll(Globals.gameObjects);
         new SnakeHead(this, 500, 500);
+        new SnakeHead(this, 200, 200);
 
         new SimpleEnemy(this);
         new SimpleEnemy(this);
