@@ -37,18 +37,22 @@ public class Globals {
     }
 
     public static void addGameObject(GameEntity toAdd) {
+        /** Add entities to newGameObjects - for example new parts of snakeBody */
         newGameObjects.add(toAdd);
     }
 
     public static void removeGameObject(GameEntity toRemove) {
+        /** Add entities to oldGameObjects - for example destroyed entities (powerups, enemies) */
         oldGameObjects.add(toRemove);
     }
 
     public static List<GameEntity> getGameObjects() {
+        /** Returns an unmodifiable List of the current active entities */
         return Collections.unmodifiableList(gameObjects);
     }
 
     public static GameEntity getGreenHealth(){
+        /** Returns green Health bar */
         for(GameEntity entity : getGameObjects())
             if (entity.getImage().equals(greenHealth)) {
                 return entity;
