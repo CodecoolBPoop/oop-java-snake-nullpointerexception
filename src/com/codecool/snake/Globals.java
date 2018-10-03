@@ -52,6 +52,7 @@ public class Globals {
     }
 
     public static GameEntity getGreenHealth(){
+        /** Returns green Health bar */
         for(GameEntity entity : getGameObjects())
             if (entity.getImage().equals(greenHealth)) {
                 return entity;
