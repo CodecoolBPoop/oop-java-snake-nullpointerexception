@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.Game;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
@@ -17,6 +18,8 @@ public class SnakeHead extends GameEntity implements Animatable {
     public int health;
 
     public SnakeHead(Pane pane, int xc, int yc) {
+        /** Calls GameEntity constructor, sets coordinates, changes health to 100, adds tail to the head,
+         * sets the image, adds the image to the Scene and adds 4 parts to the snakehead */
         super(pane);
         setX(xc);
         setY(yc);
