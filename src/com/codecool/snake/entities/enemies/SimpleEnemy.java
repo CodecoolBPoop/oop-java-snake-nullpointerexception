@@ -24,12 +24,28 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
         pane.getChildren().add(this);
         int speed = 1;
         Random rnd = new Random();
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        placeEnemy(rnd);
 
         double direction = rnd.nextDouble() * 360;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
+    }
+
+    private void placeEnemy(Random rnd) {
+        // get sneakhead from pane's nodes
+        SnakeHead player = (SnakeHead) pane.getChildren().stream()
+                            .filter(entity -> entity instanceof SnakeHead).findFirst().get();
+
+        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+        // doesn't spawn near player
+        while (Xcoord < player.getX() + 100 && Xcoord > player.getX() - 100
+                && Ycoord < player.getY() + 100 && Ycoord > player.getY() - 100) {
+            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+            Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+        }
+        setX(Xcoord);
+        setY(Ycoord);
     }
 
     @Override
