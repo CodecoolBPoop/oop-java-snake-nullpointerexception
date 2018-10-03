@@ -42,6 +42,9 @@ public class Game extends Pane {
 
     public void start() {
 
+        Globals.leftKeyDown = false;
+        Globals.rightKeyDown = false;
+
         /** Creates restart button */
         Button button = new Button("Restart");
         getChildren().add(button);
