@@ -32,8 +32,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     }
 
     private void placeEnemy(Random rnd) {
-        // get sneakhead from pane's nodes
-        SnakeHead player = (SnakeHead) pane.getChildren().stream()
+        GameEntity player = Globals.newGameObjects.stream()
                             .filter(entity -> entity instanceof SnakeHead).findFirst().get();
 
         double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
