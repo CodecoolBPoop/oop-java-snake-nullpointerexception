@@ -68,6 +68,8 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new SimplePowerup(this);
         new SimplePowerup(this);
+        new HealthBar(this, 790, 30, Globals.redHealth);
+        new HealthBar(this, 790, 30, Globals.greenHealth);
         start();
 
     }
