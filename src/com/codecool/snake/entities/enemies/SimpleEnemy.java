@@ -19,19 +19,22 @@ public class SimpleEnemy extends Enemy implements Animatable, Interactable {
 
     public SimpleEnemy(Pane pane) {
         super(pane);
-
         setImage(Globals.simpleEnemy);
+        setDirection();
+    }
+
+    private void setDirection() {
         int speed = 1;
         double direction = new Random().nextDouble() * 360;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
     }
 
-
     @Override
     public void step() {
         if (isOutOfBounds()) {
             destroy();
+            new SimpleEnemy(super.pane);
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
@@ -41,6 +44,7 @@ public class SimpleEnemy extends Enemy implements Animatable, Interactable {
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new SimpleEnemy(super.pane);
     }
 
     @Override

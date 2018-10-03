@@ -9,31 +9,33 @@ import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
+import java.util.List;
 import java.util.Random;
 
 // a simple enemy TODO make better ones.
-public abstract class Enemy extends GameEntity implements Animatable, Interactable {
+abstract class Enemy extends GameEntity implements Animatable, Interactable {
 
-    private Point2D heading;
-    private static final int damage = 10;
-
-    public Enemy(Pane pane) {
+    Enemy(Pane pane) {
         super(pane);
         pane.getChildren().add(this);
         placeEnemy();
-
     }
 
-    protected void placeEnemy() {
+     void placeEnemy() {
         Random rnd = new Random();
-        GameEntity player = Globals.newGameObjects.stream()
+
+        // at thestart of the game sneakhead can only be get from newGameobjects
+        List<GameEntity> currentlyUsedEntityList = Globals.gameObjects.isEmpty() ?
+                Globals.newGameObjects : Globals.gameObjects;
+
+        GameEntity player = currentlyUsedEntityList.stream()
                 .filter(entity -> entity instanceof SnakeHead).findFirst().get();
 
         double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
         double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
         // doesn't spawn near player
-        while (Xcoord < player.getX() + 100 && Xcoord > player.getX() - 100
-                && Ycoord < player.getY() + 100 && Ycoord > player.getY() - 100) {
+        while (Xcoord < player.getX() + 180 && Xcoord > player.getX() - 180
+                && Ycoord < player.getY() + 180 && Ycoord > player.getY() - 180) {
             Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
             Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
         }
