@@ -32,9 +32,11 @@ public class Game extends Pane {
         new HealthBar(this, 790, 30, Globals.greenHealth);
     }
 
-    public void start() {
+    public void setGame(Game game) {
+        Globals.game = game;
+    }
 
-        Globals.running = true;
+    public void start() {
 
         /** Creates restart button */
         Button button = new Button("Restart");
@@ -60,9 +62,6 @@ public class Game extends Pane {
         });
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
-        if (!Globals.running) {
-            gameOver();
-        }
     }
 
 
