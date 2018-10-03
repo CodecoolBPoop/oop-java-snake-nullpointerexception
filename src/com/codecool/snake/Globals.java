@@ -3,6 +3,7 @@ package com.codecool.snake;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -18,6 +19,9 @@ public class Globals {
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image powerupBerry = new Image("powerup_berry.png");
+    public static Image greenHealth = new Image("green_bar.png");
+    public static Image redHealth = new Image("red_bar.png");
+    public static Image healthPowerup = new Image("health_powerup.png");
     //.. put here the other images you want to use
 
     public static boolean leftKeyDown;
@@ -34,14 +38,28 @@ public class Globals {
     }
 
     public static void addGameObject(GameEntity toAdd) {
+        /** Add entities to newGameObjects - for example new parts of snakeBody */
         newGameObjects.add(toAdd);
     }
 
     public static void removeGameObject(GameEntity toRemove) {
+        /** Add entities to oldGameObjects - for example destroyed entities (powerups, enemies) */
         oldGameObjects.add(toRemove);
     }
 
     public static List<GameEntity> getGameObjects() {
+        /** Returns an unmodifiable List of the current active entities */
         return Collections.unmodifiableList(gameObjects);
     }
+
+    public static GameEntity getGreenHealth(){
+        /** Returns green Health bar */
+        for(GameEntity entity : getGameObjects())
+            if (entity.getImage().equals(greenHealth)) {
+                return entity;
+            }
+        return null;
+    }
+
+
 }

@@ -1,9 +1,11 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.Game;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
+import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.Interactable;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
@@ -13,9 +15,11 @@ public class SnakeHead extends GameEntity implements Animatable {
     private static final float speed = 2;
     private static final float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
-    private int health;
+    public int health;
 
     public SnakeHead(Pane pane, int xc, int yc) {
+        /** Calls GameEntity constructor, sets coordinates, changes health to 100, adds tail to the head,
+         * sets the image, adds the image to the Scene and adds 4 parts to the snakehead */
         super(pane);
         setX(xc);
         setY(yc);
@@ -68,5 +72,10 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void changeHealth(int diff) {
         health += diff;
+        Globals.getGreenHealth().setFitWidth(health);
+    }
+
+    public int getHealth() {
+        return health;
     }
 }
