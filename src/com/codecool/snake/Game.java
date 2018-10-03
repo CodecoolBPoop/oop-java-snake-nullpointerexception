@@ -28,6 +28,8 @@ public class Game extends Pane {
 
     public void start() {
 
+        Globals.running = true;
+
         Button button = new Button("Restart");
         getChildren().add(button);
         button.setOnAction(value -> {
@@ -51,6 +53,9 @@ public class Game extends Pane {
         });
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
+        if (!Globals.running) {
+            gameOver();
+        }
     }
 
     public void restart() {
