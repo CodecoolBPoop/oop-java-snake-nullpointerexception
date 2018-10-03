@@ -90,12 +90,12 @@ public class Game extends Pane {
         start();
     }
 
-    public void gameOver() {
+    public void gameOver(int score) {
         /** when snake's health reach zero or snakeHead is out of bounds, called this method
          * Creates a popup window, where asks if the player wants to restart or exit */
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "GAME OVER");
         alert.setTitle("GAME OVER");
-        alert.setHeaderText("");
+        alert.setHeaderText("You died! Your snake's length is " + score);
         ButtonType buttonRestart = new ButtonType("Restart");
         ButtonType buttonExit = new ButtonType("Exit");
         alert.getButtonTypes().setAll(buttonRestart, buttonExit);
