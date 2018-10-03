@@ -27,6 +27,13 @@ public class HealthPowerup extends GameEntity implements Interactable {
             snakeHead.changeHealth(10);
         }
         destroy();
+        int counter = 0;
+/*
+        while (Globals.steps % 600 != 0) {
+            continue;
+        }
+*/
+        new HealthPowerup(super.pane);
     }
 
     @Override

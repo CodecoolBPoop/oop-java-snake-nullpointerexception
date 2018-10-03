@@ -2,6 +2,7 @@ package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Animatable;
+import com.codecool.snake.entities.powerups.HealthPowerup;
 import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer {
@@ -23,5 +24,7 @@ public class GameLoop extends AnimationTimer {
         /** Remove all oldGameObjects from gameObjects and clears the oldGameObjects */
         Globals.gameObjects.removeAll(Globals.oldGameObjects);
         Globals.oldGameObjects.clear();
+
+        Globals.addSteps();
     }
 }
