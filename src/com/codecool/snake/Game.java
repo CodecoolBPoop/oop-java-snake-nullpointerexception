@@ -2,6 +2,7 @@ package com.codecool.snake;
 
 import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
+import com.codecool.snake.entities.powerups.GrowPowerup;
 import com.codecool.snake.entities.powerups.HealthPowerup;
 import com.codecool.snake.entities.powerups.SimplePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
@@ -17,12 +18,15 @@ public class Game extends Pane {
     public Game() {
         new SnakeHead(this, 500, 500);
 
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
         new HealthPowerup(this);
+
+        new GrowPowerup(this);
+
+
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
 
         new SimplePowerup(this);
         new SimplePowerup(this);
@@ -80,6 +84,8 @@ public class Game extends Pane {
         new SimpleEnemy(this);
 
         new HealthPowerup(this);
+
+        new GrowPowerup(this);
 
         new SimplePowerup(this);
         new SimplePowerup(this);

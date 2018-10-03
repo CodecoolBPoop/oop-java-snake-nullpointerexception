@@ -23,6 +23,7 @@ public class Globals {
     public static Image greenHealth = new Image("green_bar.png");
     public static Image redHealth = new Image("red_bar.png");
     public static Image healthPowerup = new Image("health_powerup.png");
+    public static Image growPowerup = new Image("grow_powerup.png");
     //.. put here the other images you want to use
 
     public static boolean leftKeyDown;
