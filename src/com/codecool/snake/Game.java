@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.HealthPowerup;
@@ -30,6 +31,10 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
+    }
+
+    public void spawnEntities() {
+        new SimpleEnemy(this);
     }
 
     public void start() {
