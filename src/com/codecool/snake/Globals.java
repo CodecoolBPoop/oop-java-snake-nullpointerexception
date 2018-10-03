@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.powerups.HealthPowerup;
 import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
@@ -81,7 +82,12 @@ public class Globals {
         steps++;
     }
 
-    public static int getSteps() {
-        return steps;
+    public static int getHealthPowerUp() {
+        int numberOfPowerUp = 0;
+        for (GameEntity entity : getGameObjects()) {
+            if (entity instanceof HealthPowerup) {
+            }
+        }
+        return numberOfPowerUp;
     }
 }
