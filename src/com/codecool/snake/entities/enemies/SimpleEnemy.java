@@ -12,45 +12,29 @@ import javafx.scene.layout.Pane;
 import java.util.Random;
 
 // a simple enemy TODO make better ones.
-public class SimpleEnemy extends GameEntity implements Animatable, Interactable {
+public class SimpleEnemy extends Enemy implements Animatable, Interactable {
 
     private Point2D heading;
     private static final int damage = 10;
 
     public SimpleEnemy(Pane pane) {
         super(pane);
-
         setImage(Globals.simpleEnemy);
-        pane.getChildren().add(this);
-        int speed = 1;
-        Random rnd = new Random();
-        placeEnemy(rnd);
-
-        double direction = rnd.nextDouble() * 360;
-        setRotate(direction);
-        heading = Utils.directionToVector(direction, speed);
+        setDirection();
     }
 
-    private void placeEnemy(Random rnd) {
-        GameEntity player = Globals.newGameObjects.stream()
-                            .filter(entity -> entity instanceof SnakeHead).findFirst().get();
-
-        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
-        // doesn't spawn near player
-        while (Xcoord < player.getX() + 100 && Xcoord > player.getX() - 100
-                && Ycoord < player.getY() + 100 && Ycoord > player.getY() - 100) {
-            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-            Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
-        }
-        setX(Xcoord);
-        setY(Ycoord);
+    private void setDirection() {
+        int speed = 1;
+        double direction = new Random().nextDouble() * 360;
+        setRotate(direction);
+        heading = Utils.directionToVector(direction, speed);
     }
 
     @Override
     public void step() {
         if (isOutOfBounds()) {
             destroy();
+            new SimpleEnemy(super.pane);
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
@@ -60,6 +44,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new SimpleEnemy(super.pane);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.Laser;
 import com.codecool.snake.entities.Stepper;
@@ -18,11 +19,16 @@ import javafx.scene.layout.*;
 
 public class Game extends Pane {
 
+    public boolean isMultiPlayer = false;
+
     public Game() {
         this.setBackground(new Background(Globals.background));
+        makeEntities();
+    }
 
-        new SnakeHead(this, 500, 500);
+    private void makeEntities(){
 
+        SnakeHead player1 = new SnakeHead(this, 500, 500);
         new HealthPowerup(this);
 
         new GrowPowerup(this);
@@ -36,10 +42,9 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new SimplePowerup(this);
         new SimplePowerup(this);
-        new HealthBar(this, 790, 30, Globals.redHealth);
-        new HealthBar(this, 790, 30, Globals.greenHealth);
-        new Stepper(this);
 
+        new HealthBar(this, 790, 30, Globals.redHealth, player1);
+        new HealthBar(this, 790, 30, Globals.greenHealth, player1);
     }
 
     public void setGame(Game game) {
@@ -47,9 +52,19 @@ public class Game extends Pane {
     }
 
     public void start() {
+
+        if (isMultiPlayer) {
+            SnakeHead player2 = new SnakeHead(this, 200, 500);
+            new HealthBar(this, 100, 30, Globals.redHealth, player2);
+            new HealthBar(this, 100, 30, Globals.greenHealth, player2);
+        }
+        new Stepper(this);
+
         Globals.shiftDown = false;
         Globals.leftKeyDown = false;
         Globals.rightKeyDown = false;
+        Globals.AkeyDown = false;
+        Globals.DkeyDown = false;
 
         /** Creates restart button */
         Button button = new Button("Restart");
@@ -64,15 +79,21 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
                 case RIGHT: Globals.rightKeyDown  = true; break;
+                case A: Globals.AkeyDown = true; break;
+                case D: Globals.DkeyDown = true; break;
                 case SHIFT: Globals.shiftDown = true; break;
             }
         });
+
+
         /** set eventHandler to release left and right keys */
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
                 case SHIFT: Globals.shiftDown = false; break;
+                case A: Globals.AkeyDown = false; break;
+                case D: Globals.DkeyDown = false; break;
             }
         });
         Globals.gameLoop = new GameLoop();
@@ -87,25 +108,25 @@ public class Game extends Pane {
         Globals.gameLoop.stop();
         getChildren().clear();
         Globals.gameObjects.removeAll(Globals.gameObjects);
-        new SnakeHead(this, 500, 500);
-
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
-        new HealthPowerup(this);
-
-        new GrowPowerup(this);
-
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new HealthBar(this, 790, 30, Globals.redHealth);
-        new HealthBar(this, 790, 30, Globals.greenHealth);
-        new Stepper(this);
+        makeEntities();
         start();
+    }
+
+    public void showGameModeModal() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Select game mode.");
+        alert.setTitle("SNAKE");
+        ButtonType singlePlayer = new ButtonType("single player");
+        ButtonType multiPlayer = new ButtonType("two player mode");
+        alert.getButtonTypes().setAll(singlePlayer, multiPlayer);
+        alert.setOnHidden(e -> {
+            if (alert.getResult() == singlePlayer)
+                isMultiPlayer = false;
+
+            if (alert.getResult() == multiPlayer)
+                isMultiPlayer = true;
+            start();
+        });
+        alert.show();
     }
 
     public void gameOver(int score) {
@@ -118,11 +139,11 @@ public class Game extends Pane {
         ButtonType buttonExit = new ButtonType("Exit");
         alert.getButtonTypes().setAll(buttonRestart, buttonExit);
         alert.setOnHidden(e -> {
-            if (alert.getResult() == buttonRestart) {
+            if (alert.getResult() == buttonRestart)
                 restart();
-            } else if (alert.getResult() == buttonExit) {
+
+            if (alert.getResult() == buttonExit)
                 Platform.exit();
-            }
         });
         alert.show();
     }

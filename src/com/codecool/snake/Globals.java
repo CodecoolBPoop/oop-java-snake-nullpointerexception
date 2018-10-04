@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.Laser;
 import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
@@ -31,6 +32,8 @@ public class Globals {
     public static Image growPowerup = new Image("grow_powerup.png");
     public static Image laser = new Image("laser.png");
     //.. put here the other images you want to use
+    public static boolean AkeyDown;
+    public static boolean DkeyDown;
     public static boolean shiftDown;
     public static boolean leftKeyDown;
     public static boolean rightKeyDown;
@@ -64,12 +67,12 @@ public class Globals {
         return Collections.unmodifiableList(gameObjects);
     }
 
-    public static GameEntity getGreenHealth(){
+    public static GameEntity getGreenHealth(SnakeHead sneak){
         /** Returns green Health bar */
         for(GameEntity entity : getGameObjects())
-            if (entity.getImage().equals(greenHealth)) {
-                return entity;
-            }
+            if (entity.getImage().equals(greenHealth))
+                if (((HealthBar) entity).getSnakeHead().equals(sneak))
+                    return entity;
         return null;
     }
 
