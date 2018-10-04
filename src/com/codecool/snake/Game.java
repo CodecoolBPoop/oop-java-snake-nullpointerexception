@@ -38,6 +38,7 @@ public class Game extends Pane {
         new HealthBar(this, 790, 30, Globals.greenHealth);
         new HealthBar(this, 100, 30, Globals.redHealth);
         new HealthBar(this, 100, 30, Globals.greenHealth);
+        new Stepper(this);
     }
 
     public void spawnEntities() {

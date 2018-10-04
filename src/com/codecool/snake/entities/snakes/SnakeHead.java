@@ -1,6 +1,7 @@
 package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Game;
+import com.codecool.snake.GameLoop;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
@@ -66,8 +67,8 @@ public class SnakeHead extends GameEntity implements Animatable {
             if (Globals.getGameObjects().stream().filter(entity -> entity instanceof SnakeHead).count() == 2)
                 killSnake();
             else {
-                Globals.game.gameOver(Globals.getSnakeBodies());
                 Globals.gameLoop.stop();
+                Globals.game.gameOver(Globals.getSnakeBodies());
             }
 
         }
@@ -91,6 +92,9 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     private void killSnake() {
+        if (Globals.oldGameObjects.stream().filter(ent -> ent instanceof SnakeHead).count() == 1) {
+            return;
+        }
         destroy();
         for (GameEntity entity: Globals.getGameObjects())
             if (entity instanceof SnakeBody)
