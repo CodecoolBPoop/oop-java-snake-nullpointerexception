@@ -17,7 +17,11 @@ import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
 
-    private static boolean isMultiPlayer;
+    public boolean isMultiPlayer = false;
+
+    public Game() {
+        makeEntities();
+    }
 
     private void makeEntities(){
 
@@ -37,11 +41,6 @@ public class Game extends Pane {
         new HealthBar(this, 790, 30, Globals.redHealth, player1);
         new HealthBar(this, 790, 30, Globals.greenHealth, player1);
     }
-
-    public Game() {
-        makeEntities();
-    }
-
 
     public void setGame(Game game) {
         Globals.game = game;

@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 // a simple enemy TODO make better ones.
 abstract class Enemy extends GameEntity implements Animatable, Interactable {
@@ -23,24 +24,32 @@ abstract class Enemy extends GameEntity implements Animatable, Interactable {
 
      void placeEnemy() {
         Random rnd = new Random();
-
         // at the start of the game sneakhead can only be get from newGameobjects
         List<GameEntity> currentlyUsedEntityList = Globals.gameObjects.isEmpty() ?
                 Globals.newGameObjects : Globals.gameObjects;
 
-        GameEntity player = currentlyUsedEntityList.stream()
-                .filter(entity -> entity instanceof SnakeHead).findFirst().get();
+        List<GameEntity> playerList = currentlyUsedEntityList.stream()
+                .filter(entity -> entity instanceof SnakeHead).collect(Collectors.toList());
 
-        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
         // doesn't spawn near player
-        while (Xcoord < player.getX() + 180 && Xcoord > player.getX() - 180
-                && Ycoord < player.getY() + 180 && Ycoord > player.getY() - 180) {
-            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-            Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+        while (true) {
+            double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+            double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+            for (GameEntity player: playerList) {
+                if (!isCoordinatesValid(Xcoord, Ycoord, player)) {
+                    continue;
+                } else {
+                    setX(Xcoord);
+                    setY(Xcoord);
+                    break;
+                }
+            }
         }
-        setX(Xcoord);
-        setY(Ycoord);
+    }
+
+    private boolean isCoordinatesValid (double Xcoord,double Ycoord, GameEntity player) {
+        return Xcoord < player.getX() + 180 && Xcoord > player.getX() - 180
+                && Ycoord < player.getY() + 180 && Ycoord > player.getY() - 180;
     }
 
     @Override

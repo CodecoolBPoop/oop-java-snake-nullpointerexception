@@ -63,7 +63,6 @@ public class Globals {
             if (entity.getImage().equals(greenHealth))
                 if (((HealthBar) entity).getSnakeHead().equals(sneak))
                     return entity;
-
         return null;
     }
 
