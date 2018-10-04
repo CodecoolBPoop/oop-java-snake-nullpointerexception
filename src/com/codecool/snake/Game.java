@@ -17,41 +17,41 @@ import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
 
+    private static boolean isMultiPlayer;
+
     public Game() {
+
         new SnakeHead(this, 500, 500);
-        new SnakeHead(this, 200, 200);
+
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
 
         new HealthPowerup(this);
-
         new GrowPowerup(this);
+        new SimplePowerup(this);
+        new SimplePowerup(this);
+        new SimplePowerup(this);
+        new SimplePowerup(this);
 
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
-        new HealthBar(this, 100, 30, Globals.redHealth);
-        new HealthBar(this, 100, 30, Globals.greenHealth);
         new Stepper(this);
     }
 
-    public void spawnEntities() {
-        new SimpleEnemy(this);
-        new Stepper(this);
-
-    }
 
     public void setGame(Game game) {
         Globals.game = game;
     }
 
     public void start() {
+
+        if (isMultiPlayer) {
+            new SnakeHead(this, 200, 500);
+            new HealthBar(this, 100, 30, Globals.redHealth);
+            new HealthBar(this, 100, 30, Globals.greenHealth);
+        }
 
         Globals.leftKeyDown = false;
         Globals.rightKeyDown = false;
@@ -99,7 +99,6 @@ public class Game extends Pane {
         getChildren().clear();
         Globals.gameObjects.removeAll(Globals.gameObjects);
         new SnakeHead(this, 500, 500);
-        new SnakeHead(this, 200, 200);
 
         new SimpleEnemy(this);
         new SimpleEnemy(this);
@@ -116,10 +115,30 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
-        new HealthBar(this, 100, 30, Globals.redHealth);
-        new HealthBar(this, 100, 30, Globals.greenHealth);
         new Stepper(this);
+        if (isMultiPlayer) {
+            new SnakeHead(this, 200, 500);
+            new HealthBar(this, 100, 30, Globals.redHealth);
+            new HealthBar(this, 100, 30, Globals.greenHealth);
+        }
         start();
+    }
+
+    public void showGamemodeModal() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Select game mode.");
+        alert.setTitle("SNAKE");
+        ButtonType singlePlayer = new ButtonType("single player");
+        ButtonType multiPlayer = new ButtonType("two player mode");
+        alert.getButtonTypes().setAll(singlePlayer, multiPlayer);
+        alert.setOnHidden(e -> {
+            if (alert.getResult() == singlePlayer)
+                isMultiPlayer = false;
+
+            if (alert.getResult() == multiPlayer)
+                isMultiPlayer = true;
+            start();
+        });
+        alert.show();
     }
 
     public void gameOver(int score) {
@@ -132,11 +151,11 @@ public class Game extends Pane {
         ButtonType buttonExit = new ButtonType("Exit");
         alert.getButtonTypes().setAll(buttonRestart, buttonExit);
         alert.setOnHidden(e -> {
-            if (alert.getResult() == buttonRestart) {
+            if (alert.getResult() == buttonRestart)
                 restart();
-            } else if (alert.getResult() == buttonExit) {
+
+            if (alert.getResult() == buttonExit)
                 Platform.exit();
-            }
         });
         alert.show();
     }
