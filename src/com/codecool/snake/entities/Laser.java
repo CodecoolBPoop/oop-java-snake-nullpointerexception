@@ -9,21 +9,22 @@ import javafx.scene.layout.Pane;
 
 public class Laser  extends GameEntity implements Animatable {
 
-    private int speed = 4;
-    public static Point2D heading;
+    private static int speed = 6;
+    public Point2D heading;
 
     public Laser(Pane pane) {
         super(pane);
         setImage(Globals.laser);
         pane.getChildren().add(this);
 
-        GameEntity snake = Globals.getSnakeHead();
+        SnakeHead snake = (SnakeHead) Globals.getSnakeHead();
         setX(snake.getX());
         setY(snake.getY());
+        this.heading = Utils.directionToVector(snake.getDir(), speed);
     }
 
-    public static void setHeading(Point2D heading) {
-        Laser.heading = heading;
+    public void setHeading(Point2D heading) {
+        this.heading = heading;
     }
 
     public static int getSpeed() {

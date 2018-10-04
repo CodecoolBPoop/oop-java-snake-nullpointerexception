@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.Laser;
 import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
@@ -68,6 +69,15 @@ public class Globals {
     public static GameEntity getSnakeHead(){
         for(GameEntity entity : getGameObjects()){
             if(entity instanceof SnakeHead){
+                return entity;
+            }
+        }
+        return null;
+    }
+
+    public static GameEntity getLaser(){
+        for(GameEntity entity : getGameObjects()){
+            if(entity instanceof Laser){
                 return entity;
             }
         }

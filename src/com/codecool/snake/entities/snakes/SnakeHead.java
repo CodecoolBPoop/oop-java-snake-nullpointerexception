@@ -15,6 +15,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private static final float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     public int health;
+    public double dir;
 
     public SnakeHead(Pane pane, int xc, int yc) {
         /** Calls GameEntity constructor, sets coordinates, changes health to 100, adds tail to the head,
@@ -31,18 +32,16 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void step() {
-        double dir = getRotate();
+        this.dir = getRotate();
         if (Globals.leftKeyDown) {
-            dir = dir - turnRate;
+            this.dir = dir - turnRate;
         }
         if (Globals.rightKeyDown) {
-            dir = dir + turnRate;
+            this.dir = dir + turnRate;
         }
         // set rotation and position
         setRotate(dir);
-        Point2D laserHeading = Utils.directionToVector(dir, Laser.getSpeed());
         Point2D heading = Utils.directionToVector(dir, speed);
-        Laser.setHeading(laserHeading);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
 
@@ -79,5 +78,9 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public int getHealth() {
         return health;
+    }
+
+    public double getDir() {
+        return dir;
     }
 }
