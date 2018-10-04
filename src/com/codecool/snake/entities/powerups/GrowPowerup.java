@@ -9,12 +9,11 @@ import javafx.scene.layout.Pane;
 
 import java.util.Random;
 
-/* powerup that increase snakes health by 10 points */
-public class HealthPowerup extends GameEntity implements Interactable {
+public class GrowPowerup extends GameEntity implements Interactable {
 
-    public HealthPowerup(Pane pane) {
+    public GrowPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.healthPowerup);
+        setImage(Globals.growPowerup);
         pane.getChildren().add(this);
 
         Random rnd = new Random();
@@ -24,15 +23,13 @@ public class HealthPowerup extends GameEntity implements Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead){
-        if (snakeHead.health != 100) {
-            snakeHead.changeHealth(10);
-        }
+        snakeHead.addPart(8);
         destroy();
-        Stepper.healthPowerupExists = false;
+        Stepper.growPowerupExists = false;
     }
 
     @Override
     public String getMessage(){
-        return "Got +10 health";
+        return "Your snake got longer ;) ";
     }
 }
