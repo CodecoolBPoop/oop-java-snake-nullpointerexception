@@ -67,7 +67,7 @@ public class Globals {
     public static int getSnakeBodies() {
         /** Iterates over the entities, check if actual entity is snakeBody, if it is, increment score */
         int score = 0;
-        for (GameEntity entity : gameObjects) {
+        for (GameEntity entity : getGameObjects()) {
             if (entity instanceof SnakeBody) {
                 score++;
             }
