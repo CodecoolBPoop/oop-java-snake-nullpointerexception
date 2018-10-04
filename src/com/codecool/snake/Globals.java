@@ -6,6 +6,10 @@ import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -35,6 +39,9 @@ public class Globals {
     public static List<GameEntity> oldGameObjects; // Holds game objects that will be destroyed this frame.
     public static GameLoop gameLoop;
     public static Game game;
+    public static BackgroundImage background = new BackgroundImage(new Image("space.jpg"), BackgroundRepeat.NO_REPEAT,
+                                                                    BackgroundRepeat.NO_REPEAT,
+                                                                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
     static {
         gameObjects = new LinkedList<>();
