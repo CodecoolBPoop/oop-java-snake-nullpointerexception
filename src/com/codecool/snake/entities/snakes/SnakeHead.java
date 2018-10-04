@@ -65,7 +65,10 @@ public class SnakeHead extends GameEntity implements Animatable {
         if (isOutOfBounds() || health <= 0) {
             if (Globals.getGameObjects().stream().filter(entity -> entity instanceof SnakeHead).count() == 2)
                 killSnake();
-            else Globals.gameLoop.stop();
+            else {
+                Globals.game.gameOver(Globals.getSnakeBodies());
+                Globals.gameLoop.stop();
+            }
 
         }
     }
