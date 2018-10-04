@@ -1,7 +1,6 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
-import com.codecool.snake.entities.powerups.HealthPowerup;
 import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
@@ -16,8 +15,6 @@ public class Globals {
 
     public static final double WINDOW_WIDTH = 1000;
     public static final double WINDOW_HEIGHT = 700;
-
-    public static int steps = 0;
 
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
@@ -70,24 +67,11 @@ public class Globals {
     public static int getSnakeBodies() {
         /** Iterates over the entities, check if actual entity is snakeBody, if it is, increment score */
         int score = 0;
-        for (GameEntity entity : getGameObjects()) {
+        for (GameEntity entity : gameObjects) {
             if (entity instanceof SnakeBody) {
                 score++;
             }
         }
         return score;
-    }
-
-    public static void addSteps() {
-        steps++;
-    }
-
-    public static int getHealthPowerUp() {
-        int numberOfPowerUp = 0;
-        for (GameEntity entity : getGameObjects()) {
-            if (entity instanceof HealthPowerup) {
-            }
-        }
-        return numberOfPowerUp;
     }
 }

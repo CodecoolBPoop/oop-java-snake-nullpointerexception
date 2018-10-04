@@ -8,8 +8,8 @@ public class Stepper extends GameEntity implements Animatable {
 
     public static boolean healthPowerupExists;
     public static boolean growPowerupExists;
-    public static int healthPowerupSpawn = 600;
-    public static int growPowerupSpawn = 1200;
+    private static int healthPowerupSpawn = 600;
+    private static int growPowerupSpawn = 1200;
 
     public Stepper(Pane pane) {
         super(pane);

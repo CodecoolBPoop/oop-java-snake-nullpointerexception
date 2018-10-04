@@ -23,9 +23,6 @@ public class Game extends Pane {
 
         new GrowPowerup(this);
 
-        new Stepper(this);
-
-
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
@@ -37,6 +34,8 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
+        new Stepper(this);
+
     }
 
     public void setGame(Game game) {
@@ -91,8 +90,6 @@ public class Game extends Pane {
 
         new HealthPowerup(this);
 
-        new Stepper(this);
-
         new GrowPowerup(this);
 
         new SimplePowerup(this);
@@ -101,6 +98,7 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
+        new Stepper(this);
         start();
     }
 
