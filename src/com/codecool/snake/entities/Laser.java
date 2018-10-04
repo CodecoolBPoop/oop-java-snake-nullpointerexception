@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 public class Laser  extends GameEntity implements Animatable {
 
-    private static int speed = 6;
+    private static int speed = 8;
     public Point2D heading;
 
     public Laser(Pane pane) {
@@ -42,8 +42,8 @@ public class Laser  extends GameEntity implements Animatable {
         for (GameEntity entity : Globals.getGameObjects()) {
             if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
                 if (entity instanceof SimpleEnemy) {
-                     Interactable enemy = (Interactable) entity;
-                    enemy.apply((SnakeHead) Globals.getSnakeHead());
+                    entity.destroy();
+                    new SimpleEnemy(super.pane);
                     destroy();
                     Stepper.laserExists = false;
                     System.out.println("I shot the sheriff");

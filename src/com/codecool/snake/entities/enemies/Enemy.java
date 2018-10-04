@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-// a simple enemy TODO make better ones.
 abstract class Enemy extends GameEntity implements Animatable, Interactable {
 
     Enemy(Pane pane) {

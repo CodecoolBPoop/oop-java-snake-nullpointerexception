@@ -85,7 +85,6 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void changeHealth(int diff) {
         health += diff;
-        System.out.println(this.isSecondSnake);
         Globals.getGreenHealth(this).setFitWidth(health > 0 ? health : 1);
     }
 
