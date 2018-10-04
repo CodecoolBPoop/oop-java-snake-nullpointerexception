@@ -1,14 +1,13 @@
 package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Game;
-import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.*;
 import com.codecool.snake.Globals;
-import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
-import com.codecool.snake.entities.HealthBar;
-import com.codecool.snake.entities.Interactable;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
+
+import javax.rmi.CORBA.Util;
 
 public class SnakeHead extends GameEntity implements Animatable {
 
@@ -41,7 +40,9 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
         // set rotation and position
         setRotate(dir);
+        Point2D laserHeading = Utils.directionToVector(dir, Laser.getSpeed());
         Point2D heading = Utils.directionToVector(dir, speed);
+        Laser.setHeading(laserHeading);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
 

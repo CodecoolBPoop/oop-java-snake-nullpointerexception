@@ -24,8 +24,9 @@ public class Globals {
     public static Image redHealth = new Image("red_bar.png");
     public static Image healthPowerup = new Image("health_powerup.png");
     public static Image growPowerup = new Image("grow_powerup.png");
+    public static Image laser = new Image("laser.png");
     //.. put here the other images you want to use
-
+    public static boolean shiftDown;
     public static boolean leftKeyDown;
     public static boolean rightKeyDown;
     public static List<GameEntity> gameObjects;
@@ -61,6 +62,15 @@ public class Globals {
             if (entity.getImage().equals(greenHealth)) {
                 return entity;
             }
+        return null;
+    }
+
+    public static GameEntity getSnakeHead(){
+        for(GameEntity entity : getGameObjects()){
+            if(entity instanceof SnakeHead){
+                return entity;
+            }
+        }
         return null;
     }
 

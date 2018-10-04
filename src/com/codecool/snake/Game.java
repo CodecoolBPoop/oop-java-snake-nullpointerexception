@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.HealthBar;
+import com.codecool.snake.entities.Laser;
 import com.codecool.snake.entities.Stepper;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.GrowPowerup;
@@ -43,7 +44,7 @@ public class Game extends Pane {
     }
 
     public void start() {
-
+        Globals.shiftDown = false;
         Globals.leftKeyDown = false;
         Globals.rightKeyDown = false;
 
@@ -60,6 +61,7 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
                 case RIGHT: Globals.rightKeyDown  = true; break;
+                case SHIFT: Globals.shiftDown = true; break;
             }
         });
         /** set eventHandler to release left and right keys */
@@ -67,6 +69,7 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
+                case SHIFT: Globals.shiftDown = false; break;
             }
         });
         Globals.gameLoop = new GameLoop();
