@@ -24,7 +24,7 @@ abstract class Enemy extends GameEntity implements Animatable, Interactable {
      void placeEnemy() {
         Random rnd = new Random();
 
-        // at thestart of the game sneakhead can only be get from newGameobjects
+        // at the start of the game sneakhead can only be get from newGameobjects
         List<GameEntity> currentlyUsedEntityList = Globals.gameObjects.isEmpty() ?
                 Globals.newGameObjects : Globals.gameObjects;
 

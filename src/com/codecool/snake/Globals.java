@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.HealthBar;
 import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
@@ -56,12 +57,13 @@ public class Globals {
         return Collections.unmodifiableList(gameObjects);
     }
 
-    public static GameEntity getGreenHealth(){
+    public static GameEntity getGreenHealth(SnakeHead sneak){
         /** Returns green Health bar */
         for(GameEntity entity : getGameObjects())
-            if (entity.getImage().equals(greenHealth)) {
-                return entity;
-            }
+            if (entity.getImage().equals(greenHealth))
+                if (((HealthBar) entity).getSnakeHead().equals(sneak))
+                    return entity;
+
         return null;
     }
 

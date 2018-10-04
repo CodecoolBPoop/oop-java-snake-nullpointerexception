@@ -2,17 +2,13 @@ package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Game;
 import com.codecool.snake.GameLoop;
-import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.*;
 import com.codecool.snake.Globals;
-import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
-import com.codecool.snake.entities.HealthBar;
-import com.codecool.snake.entities.Interactable;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
 public class SnakeHead extends GameEntity implements Animatable {
-
     private boolean isSecondSnake = false;
     private static final float speed = 2;
     private static final float turnRate = 2;
@@ -54,6 +50,7 @@ public class SnakeHead extends GameEntity implements Animatable {
             if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
                 if (entity instanceof SnakeBody && !((SnakeBody) entity).snakeHead.equals(this))
                     killSnake();
+
                 if (entity instanceof Interactable) {
                     Interactable interactable = (Interactable) entity;
                     interactable.apply(this);
@@ -74,6 +71,8 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
     }
 
+
+
     public void addPart(int numParts) {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
@@ -84,11 +83,8 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void changeHealth(int diff) {
         health += diff;
-        Globals.getGreenHealth().setFitWidth(health > 0 ? health : 1);
-    }
-
-    public int getHealth() {
-        return health;
+        System.out.println(this.isSecondSnake);
+        Globals.getGreenHealth(this).setFitWidth(health > 0 ? health : 1);
     }
 
     private void killSnake() {
@@ -101,5 +97,4 @@ public class SnakeHead extends GameEntity implements Animatable {
                 if (((SnakeBody) entity).snakeHead.equals(this))
                     entity.destroy();
     }
-
 }

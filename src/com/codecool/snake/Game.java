@@ -19,10 +19,9 @@ public class Game extends Pane {
 
     private static boolean isMultiPlayer;
 
-    public Game() {
+    private void makeEntities(){
 
-        new SnakeHead(this, 500, 500);
-
+        SnakeHead player1 = new SnakeHead(this, 500, 500);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
@@ -35,9 +34,12 @@ public class Game extends Pane {
         new SimplePowerup(this);
         new SimplePowerup(this);
 
-        new HealthBar(this, 790, 30, Globals.redHealth);
-        new HealthBar(this, 790, 30, Globals.greenHealth);
-        new Stepper(this);
+        new HealthBar(this, 790, 30, Globals.redHealth, player1);
+        new HealthBar(this, 790, 30, Globals.greenHealth, player1);
+    }
+
+    public Game() {
+        makeEntities();
     }
 
 
@@ -48,10 +50,11 @@ public class Game extends Pane {
     public void start() {
 
         if (isMultiPlayer) {
-            new SnakeHead(this, 200, 500);
-            new HealthBar(this, 100, 30, Globals.redHealth);
-            new HealthBar(this, 100, 30, Globals.greenHealth);
+            SnakeHead player2 = new SnakeHead(this, 200, 500);
+            new HealthBar(this, 100, 30, Globals.redHealth, player2);
+            new HealthBar(this, 100, 30, Globals.greenHealth, player2);
         }
+        new Stepper(this);
 
         Globals.leftKeyDown = false;
         Globals.rightKeyDown = false;
@@ -90,7 +93,6 @@ public class Game extends Pane {
         Globals.gameLoop.start();
     }
 
-
     public void restart() {
         /** if restart button clicked on the Scene or on the pop-up, stops all Animatable objects,
          * clears the Scene, removes all objects from the gameObjects, creates new instances
@@ -98,33 +100,11 @@ public class Game extends Pane {
         Globals.gameLoop.stop();
         getChildren().clear();
         Globals.gameObjects.removeAll(Globals.gameObjects);
-        new SnakeHead(this, 500, 500);
-
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
-        new HealthPowerup(this);
-
-        new GrowPowerup(this);
-
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new HealthBar(this, 790, 30, Globals.redHealth);
-        new HealthBar(this, 790, 30, Globals.greenHealth);
-        new Stepper(this);
-        if (isMultiPlayer) {
-            new SnakeHead(this, 200, 500);
-            new HealthBar(this, 100, 30, Globals.redHealth);
-            new HealthBar(this, 100, 30, Globals.greenHealth);
-        }
+        makeEntities();
         start();
     }
 
-    public void showGamemodeModal() {
+    public void showGameModeModal() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Select game mode.");
         alert.setTitle("SNAKE");
         ButtonType singlePlayer = new ButtonType("single player");
