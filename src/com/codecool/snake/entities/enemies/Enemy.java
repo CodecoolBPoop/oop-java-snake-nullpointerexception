@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.enemies;
 
+import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
@@ -11,8 +12,8 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-// a simple enemy TODO make better ones.
 abstract class Enemy extends GameEntity implements Animatable, Interactable {
 
     Enemy(Pane pane) {
@@ -23,24 +24,29 @@ abstract class Enemy extends GameEntity implements Animatable, Interactable {
 
      void placeEnemy() {
         Random rnd = new Random();
-
-        // at thestart of the game sneakhead can only be get from newGameobjects
+        // at the start of the game sneakhead can only be get from newGameobjects
         List<GameEntity> currentlyUsedEntityList = Globals.gameObjects.isEmpty() ?
                 Globals.newGameObjects : Globals.gameObjects;
 
-        GameEntity player = currentlyUsedEntityList.stream()
-                .filter(entity -> entity instanceof SnakeHead).findFirst().get();
-
-        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
         // doesn't spawn near player
-        while (Xcoord < player.getX() + 180 && Xcoord > player.getX() - 180
-                && Ycoord < player.getY() + 180 && Ycoord > player.getY() - 180) {
-            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+        while (isOnEntity(Xcoord, Ycoord, currentlyUsedEntityList)) {
             Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
         }
         setX(Xcoord);
         setY(Ycoord);
+    }
+
+    private boolean isOnEntity(double Xcoord, double Ycoord, List<GameEntity> entities) {
+        int distanceToKeep = 180;
+        for (GameEntity entity: entities) {
+            if (Xcoord < entity.getX() + distanceToKeep && Xcoord > entity.getX() - distanceToKeep
+                    && Ycoord < entity.getY() + distanceToKeep && Ycoord > entity.getY() - distanceToKeep)
+                return true;
+        }
+        return false;
     }
 
     @Override
