@@ -17,6 +17,14 @@ import javafx.scene.layout.Pane;
 public class Game extends Pane {
 
     public Game() {
+        createInstances();
+    }
+
+    public void setGame(Game game) {
+        Globals.game = game;
+    }
+
+    public void createInstances() {
         new SnakeHead(this, 500, 500);
 
         new HealthPowerup(this);
@@ -35,11 +43,6 @@ public class Game extends Pane {
         new HealthBar(this, 790, 30, Globals.redHealth);
         new HealthBar(this, 790, 30, Globals.greenHealth);
         new Stepper(this);
-
-    }
-
-    public void setGame(Game game) {
-        Globals.game = game;
     }
 
     public void start() {
@@ -81,24 +84,7 @@ public class Game extends Pane {
         Globals.gameLoop.stop();
         getChildren().clear();
         Globals.gameObjects.removeAll(Globals.gameObjects);
-        new SnakeHead(this, 500, 500);
-
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
-        new HealthPowerup(this);
-
-        new GrowPowerup(this);
-
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new HealthBar(this, 790, 30, Globals.redHealth);
-        new HealthBar(this, 790, 30, Globals.greenHealth);
-        new Stepper(this);
+        createInstances();
         start();
     }
 
