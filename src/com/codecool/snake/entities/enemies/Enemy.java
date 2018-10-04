@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.enemies;
 
+import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
@@ -28,28 +29,25 @@ abstract class Enemy extends GameEntity implements Animatable, Interactable {
         List<GameEntity> currentlyUsedEntityList = Globals.gameObjects.isEmpty() ?
                 Globals.newGameObjects : Globals.gameObjects;
 
-        List<GameEntity> playerList = currentlyUsedEntityList.stream()
-                .filter(entity -> entity instanceof SnakeHead).collect(Collectors.toList());
-
         // doesn't spawn near player
-        while (true) {
-            double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
-            double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
-            for (GameEntity player: playerList) {
-                if (!isCoordinatesValid(Xcoord, Ycoord, player)) {
-                    continue;
-                } else {
-                    setX(Xcoord);
-                    setY(Xcoord);
-                    break;
-                }
-            }
+        double Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+        double Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
+        while (isOnEntity(Xcoord, Ycoord, currentlyUsedEntityList)) {
+            Ycoord = rnd.nextDouble() * Globals.WINDOW_HEIGHT;
+            Xcoord = rnd.nextDouble() * Globals.WINDOW_WIDTH;
         }
+        setX(Xcoord);
+        setY(Ycoord);
     }
 
-    private boolean isCoordinatesValid (double Xcoord,double Ycoord, GameEntity player) {
-        return Xcoord < player.getX() + 180 && Xcoord > player.getX() - 180
-                && Ycoord < player.getY() + 180 && Ycoord > player.getY() - 180;
+    private boolean isOnEntity(double Xcoord, double Ycoord, List<GameEntity> entities) {
+        int distanceToKeep = 180;
+        for (GameEntity entity: entities) {
+            if (Xcoord < entity.getX() + distanceToKeep && Xcoord > entity.getX() - distanceToKeep
+                    && Ycoord < entity.getY() + distanceToKeep && Ycoord > entity.getY() - distanceToKeep)
+                return true;
+        }
+        return false;
     }
 
     @Override
