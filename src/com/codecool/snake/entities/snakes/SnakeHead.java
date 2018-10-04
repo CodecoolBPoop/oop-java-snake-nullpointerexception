@@ -3,10 +3,13 @@ package com.codecool.snake.entities.snakes;
 import com.codecool.snake.Game;
 import com.codecool.snake.GameLoop;
 import com.codecool.snake.entities.*;
+import com.codecool.snake.entities.*;
 import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
+
+import javax.rmi.CORBA.Util;
 
 public class SnakeHead extends GameEntity implements Animatable {
     private boolean isSecondSnake = false;
@@ -14,6 +17,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private static final float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     public int health;
+    public double dir;
 
     public SnakeHead(Pane pane, int xc, int yc) {
         /** Calls GameEntity constructor, sets coordinates, changes health to 100, adds tail to the head,
@@ -32,12 +36,12 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void step() {
-        double dir = getRotate();
+        this.dir = getRotate();
         if (isSecondSnake ? Globals.AkeyDown : Globals.leftKeyDown) {
-            dir = dir - turnRate;
+            this.dir = dir - turnRate;
         }
         if (isSecondSnake ? Globals.DkeyDown : Globals.rightKeyDown) {
-            dir = dir + turnRate;
+            this.dir = dir + turnRate;
         }
         // set rotation and position
         setRotate(dir);
@@ -71,8 +75,6 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
     }
 
-
-
     public void addPart(int numParts) {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
@@ -96,5 +98,9 @@ public class SnakeHead extends GameEntity implements Animatable {
             if (entity instanceof SnakeBody)
                 if (((SnakeBody) entity).snakeHead.equals(this))
                     entity.destroy();
+    }
+
+    public double getDir() {
+        return dir;
     }
 }

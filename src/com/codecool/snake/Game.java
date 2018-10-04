@@ -2,6 +2,7 @@ package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.HealthBar;
+import com.codecool.snake.entities.Laser;
 import com.codecool.snake.entities.Stepper;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.GrowPowerup;
@@ -13,26 +14,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 
 public class Game extends Pane {
 
     public boolean isMultiPlayer = false;
 
     public Game() {
+        this.setBackground(new Background(Globals.background));
         makeEntities();
     }
 
     private void makeEntities(){
 
         SnakeHead player1 = new SnakeHead(this, 500, 500);
+        new HealthPowerup(this);
+
+        new GrowPowerup(this);
+
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
 
-        new HealthPowerup(this);
-        new GrowPowerup(this);
         new SimplePowerup(this);
         new SimplePowerup(this);
         new SimplePowerup(this);
@@ -55,6 +60,7 @@ public class Game extends Pane {
         }
         new Stepper(this);
 
+        Globals.shiftDown = false;
         Globals.leftKeyDown = false;
         Globals.rightKeyDown = false;
         Globals.AkeyDown = false;
@@ -75,6 +81,7 @@ public class Game extends Pane {
                 case RIGHT: Globals.rightKeyDown  = true; break;
                 case A: Globals.AkeyDown = true; break;
                 case D: Globals.DkeyDown = true; break;
+                case SHIFT: Globals.shiftDown = true; break;
             }
         });
 
@@ -84,6 +91,7 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
+                case SHIFT: Globals.shiftDown = false; break;
                 case A: Globals.AkeyDown = false; break;
                 case D: Globals.DkeyDown = false; break;
             }
@@ -91,6 +99,7 @@ public class Game extends Pane {
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
     }
+
 
     public void restart() {
         /** if restart button clicked on the Scene or on the pop-up, stops all Animatable objects,
