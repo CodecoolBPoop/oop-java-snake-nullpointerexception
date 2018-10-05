@@ -2,6 +2,7 @@ package com.codecool.snake.entities;
 
 import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
+import com.codecool.snake.entities.enemies.BigEnemy;
 import com.codecool.snake.entities.powerups.GrowPowerup;
 import com.codecool.snake.entities.powerups.HealthPowerup;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,7 @@ public class Stepper extends GameEntity implements Animatable {
     public static boolean growPowerupExists;
     private static int healthPowerupSpawn = 600;
     private static int growPowerupSpawn = 1200;
+    private static int bigEnemySpawn = 1400;
     public static boolean laserExists;
 
     public Stepper(Pane pane) {
@@ -48,6 +50,13 @@ public class Stepper extends GameEntity implements Animatable {
         if (Globals.shiftDown && !laserExists){
             new Laser(super.pane);
             laserExists = true;
+        }
+
+
+        bigEnemySpawn--;
+        if (bigEnemySpawn <= 0) {
+            new BigEnemy(super.pane);
+            bigEnemySpawn = 1300;
         }
     }
 
