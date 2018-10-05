@@ -42,7 +42,6 @@ public class BigEnemy extends Enemy implements Animatable, Interactable {
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
-        new SimpleEnemy(super.pane);
     }
 
     @Override
